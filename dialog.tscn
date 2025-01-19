@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://d14pbrxtxre0w"]
+
+[ext_resource type="Texture2D" uid="uid://cnsb3loaklfet" path="res://dialogue_backgroung.png" id="1_jfjfp"]
+[ext_resource type="Script" path="res://Dialogue.gd" id="1_jm4tv"]
+[ext_resource type="AudioStream" uid="uid://cexpn7ut7w87m" path="res://blipSelect.wav" id="3_2si3m"]
+[ext_resource type="Script" path="res://dialogue_voice_player.gd" id="4_162ri"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jm4tv")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 798.0
+offset_bottom = 149.0
+texture = ExtResource("1_jfjfp")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Content" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 785.0
+offset_bottom = 138.0
+bbcode_enabled = true
+
+[node name="TypeTyper" type="Timer" parent="."]
+wait_time = 0.04
+
+[node name="DialogueVoicePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2si3m")
+script = ExtResource("4_162ri")
+
+[connection signal="timeout" from="TypeTyper" to="." method="_on_type_typer_timeout"]
+[connection signal="finished" from="DialogueVoicePlayer" to="." method="_on_dialogue_voice_player_finished"]
